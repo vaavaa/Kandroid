@@ -248,7 +248,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.apply();
                             finish();
                         } else {
-                            mServerURLView.setError(getString(R.string.error_wrong_kanboard_version, Constants.minKanboardVersion[0], Constants.minKanboardVersion[1], Constants.minKanboardVersion[2]));
+                            mServerURLView.setError(getString(R.string.error_wrong_kanboard_version, version[0], version[1], version[2], Constants.minKanboardVersion[0], Constants.minKanboardVersion[1], Constants.minKanboardVersion[2]));
                             mServerURLView.requestFocus();
                         }
                         kanboardAPI = null;

@@ -21,7 +21,7 @@
     <string name="error_incorrect_username">This username is incorrect</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="error_wrong_kanboard_version">This server uses a version below %1$d.%2$d.%3$d. Please upgrade.</string>
+    <string name="error_wrong_kanboard_version">This server uses a version (%1$d.%2$d.%3$d) below %4$d.%5$d.%6$d. Please upgrade.</string>
     <string name="error_ssl">Failed to establish an encrypted connection.\nReason: %s</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="action_projects">Projects</string>
@@ -160,7 +160,7 @@
     <string name="taskedit_color"><![CDATA[<b>Color:</b> %s]]></string>
     <string name="taskedit_seclect_color">Select a color</string>
     <string name="toast_wait_loading">Please wait. Still loading data.</string>
-    
+
     <string name="permission_storage_granted">Storage permission was granted, please start the download again.</string>
     <string name="permission_storage_denied">Storage permission was denied.</string>
     <string name="error_no_sdcard">No storage device available.</string>
