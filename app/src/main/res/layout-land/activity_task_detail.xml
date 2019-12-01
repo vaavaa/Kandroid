@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.andres.kandroid.ui.TaskDetailActivity"
+    tools:context="nl.patrickkostjens.kandroid.ui.TaskDetailActivity"
     android:id="@+id/root_layout"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
@@ -221,7 +221,7 @@
                             android:id="@+id/subtaskProgress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
-                        <in.andres.kandroid.widget.StaticListView
+                        <nl.patrickkostjens.kandroid.widget.StaticListView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:isScrollContainer="false"
@@ -251,7 +251,7 @@
                             android:id="@+id/commentProgress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
-                        <in.andres.kandroid.widget.StaticListView
+                        <nl.patrickkostjens.kandroid.widget.StaticListView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:isScrollContainer="false"
@@ -281,7 +281,7 @@
                                 android:id="@+id/filesProgress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
-                            <in.andres.kandroid.widget.StaticListView
+                            <nl.patrickkostjens.kandroid.widget.StaticListView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:isScrollContainer="false"
@@ -322,7 +322,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/fab_menu"
             app:layout_constraintEnd_toStartOf="@id/fab">
 
-            <in.andres.kandroid.widget.VerticalTextView
+            <nl.patrickkostjens.kandroid.widget.VerticalTextView
                 android:id="@+id/fab_menu_label_remove_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -351,7 +351,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_menu"
             app:layout_constraintEnd_toStartOf="@id/fab_menu_item0">
-            <in.andres.kandroid.widget.VerticalTextView
+            <nl.patrickkostjens.kandroid.widget.VerticalTextView
                 android:id="@+id/fab_menu_label_open_close_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -380,7 +380,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_menu"
             app:layout_constraintEnd_toStartOf="@id/fab_menu_item1">
-            <in.andres.kandroid.widget.VerticalTextView
+            <nl.patrickkostjens.kandroid.widget.VerticalTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/fab_label_shape"
@@ -408,7 +408,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_menu"
             app:layout_constraintEnd_toStartOf="@id/fab_menu_item2">
-            <in.andres.kandroid.widget.VerticalTextView
+            <nl.patrickkostjens.kandroid.widget.VerticalTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/fab_label_shape"
@@ -436,7 +436,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_menu"
             app:layout_constraintEnd_toStartOf="@id/fab_menu_item3">
-            <in.andres.kandroid.widget.VerticalTextView
+            <nl.patrickkostjens.kandroid.widget.VerticalTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/fab_label_shape"

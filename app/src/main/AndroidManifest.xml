@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.andres.kandroid">
+    package="nl.patrickkostjens.kandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_LOGS" />
@@ -30,14 +30,14 @@
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.MainActivity">
             <intent-filter>
-                <action android:name="in.andres.kandroid.LoginActivity" />
+                <action android:name="nl.patrickkostjens.kandroid.LoginActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.andres.kandroid.ui.SettingsActivity" />
+                android:value="nl.patrickkostjens.kandroid.ui.SettingsActivity" />
         </activity>
         <activity
             android:name=".ui.AboutActivity"
@@ -47,7 +47,7 @@
             android:label="@string/title_activity_settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.andres.kandroid.ui.MainActivity" />
+                android:value="nl.patrickkostjens.kandroid.ui.MainActivity" />
         </activity>
         <activity android:name=".ui.TaskDetailActivity" />
         <activity android:name=".ui.TaskEditActivity"></activity>

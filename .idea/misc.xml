@@ -2,7 +2,7 @@
 <project version="4">
   <component name="EntryPointsManager">
     <entry_points version="2.0">
-      <entry_point TYPE="method" FQNAME="in.andres.kandroid.AppCompatPreferenceActivity void setSupportActionBar(android.support.v7.widget.Toolbar toolbar)" />
+      <entry_point TYPE="method" FQNAME="nl.patrickkostjens.kandroid.AppCompatPreferenceActivity void setSupportActionBar(android.support.v7.widget.Toolbar toolbar)" />
     </entry_points>
   </component>
   <component name="NullableNotNullManager">
