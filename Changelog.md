@@ -1,3 +1,14 @@
+## 0.6.0 (development)
+#### new features
+
+#### improvements
+
+#### fixes
+* Fix version check to support v in front of version number in Kanboard reply
+
+#### other
+* Forked from andresth/Kandroid
+
 ## 0.5.9
 #### new features
 
