@@ -5,7 +5,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "in.andres.kandroid"
+        applicationId "nl.patrickkostjens.kandroid"
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 19
