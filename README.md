@@ -8,14 +8,14 @@
 Android App for [Kanboard](https://kanboard.org/). Forked from [andresth/Kandroid](https://github.com/andresth/Kandroid) which seems to be no longer maintained.
 Note that the F-Droid link still points to the old app as I haven't released a new version to F-Droid yet. Building manually and running that should work though.
 
-![Login](screenshots/login.png)
-![Projects](screenshots/projects.png)
-![Overdue Tasks](screenshots/overdue_tasks.png)
-![Activities](screenshots/activities.png)
-![Project Overview](screenshots/project_overview.png)
-![Project Column](screenshots/project_column.png)
-![Task Details](screenshots/task_details.png)
-![Edit Subtask](screenshots/edit_subtask.png)
+![Login](fastlane/metadata/android/en-US/images/phoneScreenshots/01-login.png)
+![Projects](fastlane/metadata/android/en-US/images/phoneScreenshots/02-projects.png)
+![Overdue Tasks](fastlane/metadata/android/en-US/images/phoneScreenshots/03-overdue_tasks.png)
+![Activities](fastlane/metadata/android/en-US/images/phoneScreenshots/04-activities.png)
+![Project Overview](fastlane/metadata/android/en-US/images/phoneScreenshots/05-project_overview.png)
+![Project Column](fastlane/metadata/android/en-US/images/phoneScreenshots/06-project_column.png)
+![Task Details](fastlane/metadata/android/en-US/images/phoneScreenshots/07-task_details.png)
+![Edit Subtask](fastlane/metadata/android/en-US/images/phoneScreenshots/08-edit_subtask.png)
 
 ## Install
 Download the latest release from github

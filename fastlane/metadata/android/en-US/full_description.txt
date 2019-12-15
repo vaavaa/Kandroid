@@ -1,0 +1,9 @@
+Client for [https://kanboard.org/ Kanboard]. It requires access to a Kanboard
+server. Forked from in.andres.kandroid.
+
+Manage your projects with the Kanban methodology.
+
+* Get a clear overview of your projects by visualizing your workflow on boards
+* Limit your workload
+* Focus on your workflow
+
