@@ -20,7 +20,6 @@
 package nl.patrickkostjens.kandroid.kanboard;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import org.json.JSONObject;
 

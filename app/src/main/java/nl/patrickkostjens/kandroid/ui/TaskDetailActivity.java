@@ -1369,7 +1369,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         private Context mContext;
         private LayoutInflater mInflater;
         private List<KanboardSubtask> mObjects;
-        private boolean mShowAdd = false;
+        private boolean mShowAdd;
 
         public SubtaskAdapter(Context context, List<KanboardSubtask> objects, boolean showAdd) {
             super(context, R.layout.listitem_subtask, objects);
@@ -1471,7 +1471,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         private Context mContext;
         private LayoutInflater mInflater;
         private List<KanboardComment> mObjects;
-        private boolean mShowAdd = false;
+        private boolean mShowAdd;
 
         public CommentAdapter(Context context, List<KanboardComment> objects, boolean showAdd) {
             super(context, R.layout.listitem_comment, objects);

@@ -130,9 +130,9 @@ public class MainActivity extends AppCompatActivity
         public void onError(KanboardError error) {
             new AlertDialog.Builder(self)
                     .setTitle("Error")
-                    .setMessage("Code: " + Integer.toString(error.Code) + "\n" +
+                    .setMessage("Code: " + error.Code + "\n" +
                             "Message: " + error.Message + "\n" +
-                            "HTTP Response: " + Integer.toString(error.HTTPReturnCode))
+                            "HTTP Response: " + error.HTTPReturnCode)
                     .setNeutralButton("Dismiss", null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
@@ -388,11 +388,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     protected void onPostResume() {
         super.onPostResume();
         if (mDashboard != null && (progressBarCount <= 0) && (mode == 0))
@@ -433,7 +428,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
             refresh();
             return true;
@@ -442,7 +436,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.

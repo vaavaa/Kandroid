@@ -49,7 +49,7 @@
                 android:value="nl.patrickkostjens.kandroid.ui.MainActivity" />
         </activity>
         <activity android:name=".ui.TaskDetailActivity" />
-        <activity android:name=".ui.TaskEditActivity"></activity>
+        <activity android:name=".ui.TaskEditActivity" />
         <service android:name=".DownloadIntentService" />
     </application>
 

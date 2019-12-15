@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.IntentService;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,7 +50,6 @@ import java.net.URL;
 import java.security.cert.CertificateException;
 
 import nl.patrickkostjens.kandroid.kanboard.KanboardAPI;
-import nl.patrickkostjens.kandroid.ui.MainActivity;
 
 
 public class DownloadIntentService extends IntentService {
