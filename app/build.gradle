@@ -8,8 +8,8 @@ android {
         applicationId "nl.patrickkostjens.kandroid"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 19
-        versionName "0.5.9"
+        versionCode 20
+        versionName "0.6.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

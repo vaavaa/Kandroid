@@ -1,4 +1,4 @@
-## 0.6.0 (development)
+## 0.6.0
 #### new features
 
 #### improvements
