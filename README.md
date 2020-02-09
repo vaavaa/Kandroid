@@ -3,7 +3,7 @@
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
-      height="80">](https://f-droid.org/app/in.andres.kandroid)
+      height="80">](https://f-droid.org/app/nl.patrickkostjens.kandroid)
 
 Android App for [Kanboard](https://kanboard.org/). Forked from [andresth/Kandroid](https://github.com/andresth/Kandroid) which seems to be no longer maintained.
 Note that the F-Droid link still points to the old app as I haven't released a new version to F-Droid yet. Building manually and running that should work though.
