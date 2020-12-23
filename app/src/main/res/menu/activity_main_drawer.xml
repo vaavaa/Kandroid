@@ -5,6 +5,9 @@
         android:id="@+id/nav_dashboard"
         android:enabled="false"
         android:icon="@drawable/laptop" />
+    <item
+        android:id="@+id/share_task"
+        android:title="@string/share_form" />
     <!--<item-->
         <!--android:title="@string/action_overdue"-->
         <!--android:id="@+id/nav_overdue"-->
@@ -35,6 +38,9 @@
 
     <item android:title="@string/action_settings">
         <menu>
+            <item
+                android:id="@+id/nav_log_in"
+                android:title="@string/log_in_activity" />
             <item
                 android:id="@+id/nav_sign_in"
                 android:icon="@drawable/settings"

@@ -152,6 +152,13 @@
     <string name="menu_caption_comment">コメント #%d</string>
     <string name="menu_caption_subtask">サブタスク #%d</string>
     <string name="title_activity_splash">Splash</string>
+    <string name="share_form">Share</string>
+    <string name="log_in_activity">Log in</string>
+    <string name="Error">Error</string>
+    <string name="Code">Code</string>
+    <string name="Message">Message</string>
+    <string name="HTTP_Response">HTTP_Response</string>
+    <string name="error_action">Log in</string>
 
     <!--ARAC strings-->
 

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Kandroid.iml" filepath="$PROJECT_DIR$/Kandroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Kandroid.iml" filepath="$PROJECT_DIR$/.idea/modules/Kandroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Kandroid.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Kandroid.app.iml" />
     </modules>
   </component>
 </project>

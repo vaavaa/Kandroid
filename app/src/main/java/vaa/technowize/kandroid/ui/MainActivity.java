@@ -23,6 +23,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -58,6 +59,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import fr.tvbarthel.intentshare.IntentShare;
 import kandroid.R;
 import vaa.technowize.kandroid.ArrayPagerAdapter;
 import kandroid.BuildConfig;
@@ -92,6 +94,7 @@ import vaa.technowize.kandroid.kanboard.events.OnGetProjectUsersListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int CHILD_ACTIVITY_CODE = 657;
     private String serverURL;
     private String username;
     private String password;
@@ -105,12 +108,15 @@ public class MainActivity extends AppCompatActivity
     private MenuItem refreshAction;
     private boolean progressVisible = false;
     private int progressBarCount = 0;
+    private SharedPreferences mSharedPreferences;
+    private AlertDialog err_Dialog = null;
+
 
     private int mode = 0;
 
     private KanboardAPI kanboardAPI;
     private KanboardUserInfo Me;
-//    private List<KanboardProjectInfo> mProjects;
+    //    private List<KanboardProjectInfo> mProjects;
     private KanboardProject mProject = null;
     private KanboardDashboard mDashboard = null;
     private Dictionary<String, KanboardColor> mColors = null;
@@ -126,19 +132,61 @@ public class MainActivity extends AppCompatActivity
     private List<KanboardTask> mOverdueTasks = null;
     private Dictionary<Integer, String> mProjectUsers = null;
 
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CHILD_ACTIVITY_CODE && resultCode == RESULT_OK) {
+            String update_code = "";
+            Bundle update_object  = null;
+            update_object = data.getExtras();
+            if (update_object !=null) {
+                update_code = update_object.getString("update");
+                if (update_code != null && !update_code.equals("0")) {
+                    if (err_Dialog != null && err_Dialog.isShowing())
+                        err_Dialog.hide();
+                    err_Dialog = null;
+                    finish();
+                }
+            }
+
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private DialogInterface.OnClickListener mActionPositive = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Intent iSetting = new Intent(getBaseContext(), LoginActivity.class);
+            iSetting.putExtra("update", "0");
+            startActivityForResult(iSetting, CHILD_ACTIVITY_CODE);
+        }
+    };
+
+
+    private DialogInterface.OnClickListener mActionNegative = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (err_Dialog != null)
+                err_Dialog.hide();
+            System.exit(0);
+        }
+    };
+
     private OnErrorListener errorListener = new OnErrorListener() {
         @Override
         public void onError(KanboardError error) {
-            new AlertDialog.Builder(self)
-                    .setTitle("Error")
-                    .setMessage("Code: " + error.Code + "\n" +
-                            "Message: " + error.Message + "\n" +
-                            "HTTP Response: " + error.HTTPReturnCode)
-                    .setNeutralButton("Dismiss", null)
+            err_Dialog = new AlertDialog.Builder(self)
+                    .setTitle(R.string.Error)
+                    .setMessage(getString(R.string.Code) + ": " + Integer.toString(error.Code) + "\n" +
+                            getString(R.string.Message) + ": " + error.Message + "\n" +
+                            getString(R.string.HTTP_Response) + ": " + Integer.toString(error.HTTPReturnCode))
+                    .setNegativeButton(R.string.error_dismiss, mActionNegative)
+                    .setPositiveButton(R.string.error_action, mActionPositive)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }
     };
+
     private OnGetMeListener getMeListener = new OnGetMeListener() {
         @Override
         public void onGetMe(boolean success, KanboardUserInfo result) {
@@ -155,6 +203,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetMyDashboardListener getMyDashboardListener = new OnGetMyDashboardListener() {
         @Override
         public void onGetMyDashboard(boolean success, KanboardDashboard result) {
@@ -177,6 +226,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetMyOverdueTasksListener getMyOverdueTasksListener = new OnGetMyOverdueTasksListener() {
         @Override
         public void onGetMyOverdueTasks(boolean success, List<KanboardTask> result) {
@@ -188,6 +238,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetProjectByIdListener getProjectByIdListener = new OnGetProjectByIdListener() {
         @Override
         public void onGetProjectById(boolean success, KanboardProject result) {
@@ -199,6 +250,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetColumnsListener getColumnsListener = new OnGetColumnsListener() {
         @Override
         public void onGetColumns(boolean success, List<KanboardColumn> result) {
@@ -221,6 +273,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetAllCategoriesListener getAllCategoriesListener = new OnGetAllCategoriesListener() {
         @Override
         public void onGetAllCategories(boolean success, List<KanboardCategory> result) {
@@ -232,6 +285,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetAllTasksListener getAllTasksListener = new OnGetAllTasksListener() {
         @Override
         public void onGetAllTasks(boolean success, int status, List<KanboardTask> result) {
@@ -250,6 +304,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetOverdueTasksByProjectListener getOverdueTasksByProjectListener = new OnGetOverdueTasksByProjectListener() {
         @Override
         public void onGetOverdueTasksByProject(boolean success, List<KanboardTask> result) {
@@ -261,6 +316,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetProjectUsersListener getProjectUsersListener = new OnGetProjectUsersListener() {
         @Override
         public void onGetProjectUsers(boolean success, Dictionary<Integer, String> result) {
@@ -272,6 +328,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetDefaultColorsListener getDefaultColorsListener = new OnGetDefaultColorsListener() {
         @Override
         public void onGetDefaultColors(boolean success, Dictionary<String, KanboardColor> colors) {
@@ -283,6 +340,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+
     private OnGetMyProjectsListener getMyProjectsListener = new OnGetMyProjectsListener() {
         @Override
         public void onGetMyProjects(boolean success, List<KanboardProject> result) {
@@ -295,10 +353,8 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    //region overrides
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+    private void init() {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -310,6 +366,7 @@ public class MainActivity extends AppCompatActivity
         mTitleStrip = (PagerTitleStrip) mViewPager.findViewById(R.id.pager_title_strip);
         mArrayPager = new ArrayPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mArrayPager);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
         self = this;
 
@@ -322,9 +379,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        if (savedInstanceState != null) {
-            restoreSavedState(savedInstanceState);
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -341,6 +395,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    //region overrides
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
+
+        if (savedInstanceState != null) {
+            restoreSavedState(savedInstanceState);
+        }
 
     }
 
@@ -389,6 +454,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     protected void onPostResume() {
         super.onPostResume();
         if (mDashboard != null && (progressBarCount <= 0) && (mode == 0))
@@ -429,6 +499,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
             refresh();
             return true;
@@ -437,6 +508,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -448,6 +520,15 @@ public class MainActivity extends AppCompatActivity
                 mViewPager.setCurrentItem(0);
             mode = 0;
             showDashboard();
+        } else if (id == R.id.share_task) {
+            IntentShare.with(getBaseContext())
+                    .chooserTitle("Select a sharing target : ")
+                    .text("Default text you would like to share.")
+                    .deliver();
+            ;
+        } else if (id == R.id.nav_log_in) {
+            Intent iLogIn = new Intent(this, LoginActivity.class);
+            startActivity(iLogIn);
         } else if (id == R.id.nav_sign_in) {
             Intent iSetting = new Intent(this, SettingsActivity.class);
             startActivity(iSetting);
@@ -522,7 +603,8 @@ public class MainActivity extends AppCompatActivity
 
     private void populateProjectsMenu() {
         if (mProjectList == null) {
-            if (BuildConfig.DEBUG) Log.d("Kandroid", "Tried to populate drawer, but mDashboard was null");
+            if (BuildConfig.DEBUG)
+                Log.d("Kandroid", "Tried to populate drawer, but mDashboard was null");
             return;
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
@@ -532,14 +614,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView nav = (NavigationView) findViewById(R.id.nav_view);
         SubMenu projMenu = nav.getMenu().findItem(R.id.projects).getSubMenu();
         projMenu.clear();
-        for (KanboardProject item: projList)
+        for (KanboardProject item : projList)
             projMenu.add(Menu.NONE, item.getId(), Menu.NONE, item.getName())
                     .setIcon(R.drawable.project);
     }
 
     private void showDashboard() {
         if (mDashboard == null) {
-            if (BuildConfig.DEBUG) Log.d("Kandroid", "Tried to show dashboard, but mDashboard was null");
+            if (BuildConfig.DEBUG)
+                Log.d("Kandroid", "Tried to show dashboard, but mDashboard was null");
             return;
         }
 
@@ -548,14 +631,15 @@ public class MainActivity extends AppCompatActivity
 
         mArrayPager.removeAllFragments();
         mArrayPager.addFragment(DashProjectsFragment.newInstance(), getString(R.string.tab_projects));
-        mArrayPager.addFragment(DashOverdueFragment.newInstance(),getString(R.string.tab_overdue_tasks));
+        mArrayPager.addFragment(DashOverdueFragment.newInstance(), getString(R.string.tab_overdue_tasks));
         mArrayPager.addFragment(DashActivitiesFragment.newInstance(), getString(R.string.tab_activity));
         mArrayPager.notifyDataSetChanged();
     }
 
     private void showProject() {
         if (mProject == null) {
-            if (BuildConfig.DEBUG) Log.d(Constants.TAG, "Tried to show project, but mProject was null");
+            if (BuildConfig.DEBUG)
+                Log.d(Constants.TAG, "Tried to show project, but mProject was null");
             return;
         }
 
@@ -586,7 +670,7 @@ public class MainActivity extends AppCompatActivity
         mArrayPager.notifyDataSetChanged();
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+
     private boolean showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -607,7 +691,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
 
-            mProgress.setVisibility(progressBarCount > 0 ? View.VISIBLE: View.GONE);
+            mProgress.setVisibility(progressBarCount > 0 ? View.VISIBLE : View.GONE);
             mProgress.animate().setDuration(shortAnimTime).alpha(progressBarCount > 0 ? 1 : 0)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
