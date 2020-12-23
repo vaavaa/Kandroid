@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorBackgroundFloating"
+    android:theme="@style/ThemeOverlay.Kandroid.FullscreenContainer"
+    tools:context=".ui.SplashActivity"
+    android:id="@+id/splash_view" >
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <ImageView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:layout_margin="100dp"
+        android:src="@mipmap/ic_launcher"/>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

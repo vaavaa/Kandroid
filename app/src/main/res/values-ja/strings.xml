@@ -151,6 +151,7 @@
     <string name="action_delete">削除</string>
     <string name="menu_caption_comment">コメント #%d</string>
     <string name="menu_caption_subtask">サブタスク #%d</string>
+    <string name="title_activity_splash">Splash</string>
 
     <!--ARAC strings-->
 

@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="nl.patrickkostjens.kandroid.ui.TaskDetailActivity"
+    tools:context="vaa.technowize.kandroid.ui.TaskDetailActivity"
     android:id="@+id/root_layout"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
@@ -224,7 +224,7 @@
                         android:id="@+id/subtaskProgress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <nl.patrickkostjens.kandroid.widget.StaticListView
+                    <vaa.technowize.kandroid.widget.StaticListView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:isScrollContainer="false"
@@ -254,7 +254,7 @@
                         android:id="@+id/commentProgress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <nl.patrickkostjens.kandroid.widget.StaticListView
+                    <vaa.technowize.kandroid.widget.StaticListView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
@@ -284,7 +284,7 @@
                         android:id="@+id/filesProgress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <nl.patrickkostjens.kandroid.widget.StaticListView
+                    <vaa.technowize.kandroid.widget.StaticListView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:isScrollContainer="false"

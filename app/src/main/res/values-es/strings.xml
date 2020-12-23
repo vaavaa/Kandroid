@@ -149,5 +149,6 @@
     <string name="action_delete">Eliminar</string>
     <string name="menu_caption_comment">Comentario #%d</string>
     <string name="menu_caption_subtask">Comentario #%d</string>
+    <string name="title_activity_splash">Splash</string>
 
 </resources>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Preference android:title="@string/action_sign" >
-        <intent android:action="nl.patrickkostjens.kandroid.LoginActivity" />
+        <intent android:action="vaa.technowize.kandroid.LoginActivity" />
     </Preference>
 
     <!--<PreferenceCategory-->

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.patrickkostjens.kandroid">
+    package="kandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
     <application
+        android:name="vaa.technowize.kandroid.KandroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="KandroidApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name="vaa.technowize.kandroid.ui.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,32 +25,62 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="vaa.technowize.kandroid.ui.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="vaa.technowize.kandroid.ui.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName="vaa.technowize.kandroid.ui.MainActivity">
             <intent-filter>
-                <action android:name="nl.patrickkostjens.kandroid.LoginActivity" />
+                <action android:name="kandroid.LoginActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.patrickkostjens.kandroid.ui.SettingsActivity" />
+                android:value="vaa.technowize.kandroid.ui.SettingsActivity" />
+        </activity>
+        <activity android:name="vaa.technowize.kandroid.ui.ShareActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AboutActivity"
+            android:name="vaa.technowize.kandroid.ui.AboutActivity"
             android:label="@string/title_activity_about" />
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name="vaa.technowize.kandroid.ui.SettingsActivity"
             android:label="@string/title_activity_settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.patrickkostjens.kandroid.ui.MainActivity" />
+                android:value="vaa.technowize.kandroid.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.TaskDetailActivity" />
-        <activity android:name=".ui.TaskEditActivity" />
-        <service android:name=".DownloadIntentService" />
+        <activity android:name="vaa.technowize.kandroid.ui.TaskDetailActivity" />
+        <activity android:name="vaa.technowize.kandroid.ui.TaskEditActivity" />
+
+        <service android:name="vaa.technowize.kandroid.DownloadIntentService" />
     </application>
 
 </manifest>
