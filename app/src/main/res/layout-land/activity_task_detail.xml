@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="vaa.technowize.kandroid.ui.TaskDetailActivity"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/activity_task_detail_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/cardview_vertical_margin"
@@ -112,9 +112,9 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/card_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -136,9 +136,9 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/text_Description"/>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/card_timetracking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -182,11 +182,11 @@
                             android:id="@+id/text_DateDue"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/activity_task_detail"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -200,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/card_subtasks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,9 +228,9 @@
                             android:visibility="gone"
                             android:id="@+id/subtask_listview"/>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/card_comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -258,9 +258,9 @@
                             android:visibility="gone"
                             android:id="@+id/comment_listview"/>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/card_files"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -288,20 +288,20 @@
                                 android:visibility="gone"
                                 android:id="@+id/files_listview"/>
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fab_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -331,7 +331,7 @@
                 android:gravity="bottom"
                 android:padding="5dp"
                 android:text="@string/taskview_fab_remove_task" />
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_menu_button_remove_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -360,7 +360,7 @@
                 android:gravity="bottom"
                 android:padding="5dp"
                 android:text="@string/taskview_fab_close_task" />
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_menu_button_open_close_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -388,7 +388,7 @@
                 android:gravity="bottom"
                 android:padding="5dp"
                 android:text="@string/taskview_fab_edit_task" />
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_menu_button_edit_task_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -416,7 +416,7 @@
                 android:gravity="bottom"
                 android:padding="5dp"
                 android:text="@string/taskview_fab_new_comment"/>
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_menu_button_new_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -444,7 +444,7 @@
                 android:gravity="bottom"
                 android:padding="5dp"
                 android:text="@string/taskview_fab_new_subtask"/>
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_menu_button_new_subtask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -453,5 +453,5 @@
                 app:fabSize="mini" />
         </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
-</android.support.design.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

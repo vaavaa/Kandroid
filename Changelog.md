@@ -1,3 +1,13 @@
+## 0.6.1
+#### new features
+* Splash activity for smooth uploading all staff
+#### improvements
+* Better errors handing
+#### fixes
+* Fix version check to support v in front of version number in Kanboard reply
+#### other
+* Forked from patrickkostjens/Kandroid
+
 ## 0.6.0
 #### new features
 

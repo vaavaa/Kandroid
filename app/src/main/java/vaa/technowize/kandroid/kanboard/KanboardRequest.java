@@ -19,8 +19,8 @@
 
 package vaa.technowize.kandroid.kanboard;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 //import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.text.StringEscapeUtils;

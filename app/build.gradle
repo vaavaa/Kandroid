@@ -2,20 +2,30 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "vaa.technowize.kandroid"
         minSdkVersion 26
-        targetSdkVersion 26
+        targetSdkVersion 30
         versionCode 26
-        versionName "0.6.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName "0.6.1"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "version"
+    productFlavors {
+        full {
+            buildConfigField 'String', 'CRASH_URL', '"https://crash.patrickkostjens.nl/report"'
         }
     }
     lintOptions {
@@ -34,39 +44,45 @@ android {
     }
 }
 
-def support = '28.0.0'
 def retrofit = '2.1.0'
-def dagger = '2.25.4'
+def dagger = '2.30.1'
 def butterKnife = "8.4.0"
 def moxyVersion = "2.2.1"
+def cicerone = "6.6"
+def acraVersion = '5.7.0'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "com.android.support:appcompat-v7:$support"
-    implementation "com.android.support:support-v4:$support"
-    implementation "com.android.support:design:$support"
-    implementation "com.android.support:recyclerview-v7:$support"
-    testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:cardview-v7:$support"
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    testImplementation 'junit:junit:4.13.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation group: 'com.atlassian.commonmark', name:'commonmark', version:'0.11.0'
 //    compile 'org.apache.commons:commons-lang3:3.6'
     implementation 'commons-io:commons-io:2.5'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-text
     implementation group: 'org.apache.commons', name: 'commons-text', version: '1.1'
-//    compile 'ch.acra:acra:4.9.2'
-    implementation 'com.faendir:acra:4.10.0'
+
+    implementation "ch.acra:acra-http:$acraVersion"
+    implementation "ch.acra:acra-dialog:$acraVersion"
+    implementation "ch.acra:acra-limiter:$acraVersion"
+    implementation "ch.acra:acra-advanced-scheduler:$acraVersion"
+
     implementation 'com.thebluealliance:spectrum:0.7.1'
     implementation 'fr.tvbarthel.intentshare:library:0.0.4'
     implementation "com.github.moxy-community:moxy-android:$moxyVersion"
     implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
     annotationProcessor "com.github.moxy-community:moxy-compiler:$moxyVersion"
     implementation "com.google.dagger:dagger-android:$dagger"
-    implementation "com.google.dagger:dagger-android-support:$dagger" // if you use the support libraries
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger"
+
+    implementation "com.github.terrakok:cicerone:$cicerone"
 //    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 //    implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
 

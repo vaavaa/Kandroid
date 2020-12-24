@@ -5,8 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import kandroid.R;
@@ -43,7 +44,8 @@ public class SplashActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
                 Intent mainActivity = new Intent(Self, MainActivity.class);
-                startActivity(mainActivity);
+                Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(Self, R.anim.fade_in, R.anim.fade_out).toBundle();
+                startActivity(mainActivity, bundle);
             }
 
         }

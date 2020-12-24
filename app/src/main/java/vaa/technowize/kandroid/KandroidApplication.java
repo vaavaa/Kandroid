@@ -20,32 +20,65 @@
 package vaa.technowize.kandroid;
 
 
+import android.app.AppComponentFactory;
 import android.app.Application;
+import android.app.job.JobInfo;
+import android.content.Context;
 import android.util.Log;
 
-import org.acra.*;
-import org.acra.annotation.*;
+import org.acra.ACRA;
+import org.acra.BuildConfig;
+import org.acra.annotation.AcraCore;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.HttpSenderConfigurationBuilder;
+import org.acra.config.LimiterConfigurationBuilder;
+import org.acra.config.SchedulerConfigurationBuilder;
+import org.acra.data.StringFormat;
 import org.acra.sender.HttpSender;
 
-import kandroid.R;
 
-@ReportsCrashes(formUri = "https://crash.patrickkostjens.nl/report",
-                mode = ReportingInteractionMode.DIALOG,
-                formUriBasicAuthLogin = "UGosGwubLYytIPAM",
-                formUriBasicAuthPassword = "nDOMOkZd6zbaHNuI",
-                excludeMatchingSharedPreferencesKeys={"username", "password", "serverurl"},
-                httpMethod = HttpSender.Method.POST,
-                reportType = HttpSender.Type.JSON,
-                logcatArguments = { "-t", "200", "-v", "time", "Kandroid:d", "InstantRun:s", "*:e" },
-                resDialogIcon = android.R.drawable.stat_notify_error,
-                resDialogTitle = R.string.acra_dialog_title,
-                resDialogText = R.string.acra_dialog_text_upload,
-                resDialogCommentPrompt = R.string.acra_dialog_comment_prompt)
+//@ReportsCrashes(formUri = "https://crash.patrickkostjens.nl/report",
+//        mode = ReportingInteractionMode.DIALOG,
+//        formUriBasicAuthLogin = "UGosGwubLYytIPAM",
+//        formUriBasicAuthPassword = "nDOMOkZd6zbaHNuI",
+//        excludeMatchingSharedPreferencesKeys = {"username", "password", "serverurl"},
+//        httpMethod = HttpSender.Method.POST,
+//        reportType = HttpSender.Type.JSON,
+//        logcatArguments = {"-t", "200", "-v", "time", "Kandroid:d", "InstantRun:s", "*:e"},
+//        resDialogIcon = android.R.drawable.stat_notify_error,
+//        resDialogTitle = R.string.acra_dialog_title,
+//        resDialogText = R.string.acra_dialog_text_upload,
+//        resDialogCommentPrompt = R.string.acra_dialog_comment_prompt)
+
+
+@AcraCore(buildConfigClass = BuildConfig.class)
 public class KandroidApplication extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.i(Constants.TAG, "Start ACRA");
-        ACRA.init(this);
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
+                .setBuildConfigClass(BuildConfig.class)
+                .setReportFormat(StringFormat.JSON);
+//        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
+//                .setUri("https://yourdomain.com/acra/report")
+//                .setHttpMethod(HttpSender.Method.POST)
+//                .setBasicAuthLogin("*****")
+//                .setBasicAuthPassword("*****")
+//                .setEnabled(true);
+//        builder.getPluginConfigurationBuilder(SchedulerConfigurationBuilder.class)
+//                .setRequiresNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+//                .setRequiresBatteryNotLow(true)
+//                .setEnabled(true);
+//        builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder.class)
+//                .setEnabled(true);
+        ACRA.init(this, builder);
+    }
+
 }

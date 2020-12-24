@@ -31,7 +31,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
