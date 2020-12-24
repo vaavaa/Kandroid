@@ -5,6 +5,7 @@
 * Better errors handing
 #### fixes
 * Fix version check to support v in front of version number in Kanboard reply
+* Updated upto andoidX
 #### other
 * Forked from patrickkostjens/Kandroid
 

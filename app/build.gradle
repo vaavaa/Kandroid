@@ -76,11 +76,17 @@ dependencies {
 
     implementation 'com.thebluealliance:spectrum:0.7.1'
     implementation 'fr.tvbarthel.intentshare:library:0.0.4'
+
+
     implementation "com.github.moxy-community:moxy-android:$moxyVersion"
     implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
     annotationProcessor "com.github.moxy-community:moxy-compiler:$moxyVersion"
+
     implementation "com.google.dagger:dagger-android:$dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger"
+
+
 
     implementation "com.github.terrakok:cicerone:$cicerone"
 //    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'

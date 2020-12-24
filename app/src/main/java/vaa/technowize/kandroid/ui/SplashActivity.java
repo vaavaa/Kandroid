@@ -10,10 +10,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
+import javax.inject.Inject;
+
 import kandroid.R;
+import vaa.technowize.kandroid.KandroidApplication;
+import vaa.technowize.kandroid.mvp.views.SplashViewModel;
 
 
 public class SplashActivity extends AppCompatActivity {
+
+    // You want Dagger to provide an instance of
+    @Inject
+    vaa.technowize.kandroid.mvp.views.SplashViewModel SplashViewModel;
 
     private static final int UI_ANIMATION_DELAY = 3000;
     private final Handler mHideHandler = new Handler();
@@ -61,6 +69,9 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ((KandroidApplication) getApplicationContext()).appComponent.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mVisible = true;

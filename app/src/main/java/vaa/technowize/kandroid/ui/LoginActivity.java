@@ -45,6 +45,7 @@ import java.io.IOException;
 
 import vaa.technowize.kandroid.Constants;
 import kandroid.R;
+import vaa.technowize.kandroid.KandroidApplication;
 import vaa.technowize.kandroid.kanboard.KanboardAPI;
 import vaa.technowize.kandroid.kanboard.KanboardError;
 import vaa.technowize.kandroid.kanboard.events.OnErrorListener;
@@ -68,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ((KandroidApplication) getApplicationContext()).appComponent.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setupActionBar();

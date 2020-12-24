@@ -19,10 +19,7 @@
 
 package vaa.technowize.kandroid;
 
-
-import android.app.AppComponentFactory;
 import android.app.Application;
-import android.app.job.JobInfo;
 import android.content.Context;
 import android.util.Log;
 
@@ -30,29 +27,13 @@ import org.acra.ACRA;
 import org.acra.BuildConfig;
 import org.acra.annotation.AcraCore;
 import org.acra.config.CoreConfigurationBuilder;
-import org.acra.config.HttpSenderConfigurationBuilder;
-import org.acra.config.LimiterConfigurationBuilder;
-import org.acra.config.SchedulerConfigurationBuilder;
 import org.acra.data.StringFormat;
-import org.acra.sender.HttpSender;
-
-
-//@ReportsCrashes(formUri = "https://crash.patrickkostjens.nl/report",
-//        mode = ReportingInteractionMode.DIALOG,
-//        formUriBasicAuthLogin = "UGosGwubLYytIPAM",
-//        formUriBasicAuthPassword = "nDOMOkZd6zbaHNuI",
-//        excludeMatchingSharedPreferencesKeys = {"username", "password", "serverurl"},
-//        httpMethod = HttpSender.Method.POST,
-//        reportType = HttpSender.Type.JSON,
-//        logcatArguments = {"-t", "200", "-v", "time", "Kandroid:d", "InstantRun:s", "*:e"},
-//        resDialogIcon = android.R.drawable.stat_notify_error,
-//        resDialogTitle = R.string.acra_dialog_title,
-//        resDialogText = R.string.acra_dialog_text_upload,
-//        resDialogCommentPrompt = R.string.acra_dialog_comment_prompt)
 
 
 @AcraCore(buildConfigClass = BuildConfig.class)
 public class KandroidApplication extends Application {
+
+    public ApplicationComponent appComponent = DaggerApplicationComponent.create();
 
     @Override
     public void onCreate() {

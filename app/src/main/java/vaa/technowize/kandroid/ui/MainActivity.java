@@ -29,10 +29,13 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.PagerTitleStrip;
 import androidx.viewpager.widget.ViewPager;
@@ -41,6 +44,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,6 +68,7 @@ import vaa.technowize.kandroid.ArrayPagerAdapter;
 import kandroid.BuildConfig;
 import vaa.technowize.kandroid.Constants;
 
+import vaa.technowize.kandroid.KandroidApplication;
 import vaa.technowize.kandroid.kanboard.KanboardAPI;
 import vaa.technowize.kandroid.kanboard.KanboardActivity;
 import vaa.technowize.kandroid.kanboard.KanboardCategory;
@@ -135,9 +140,9 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHILD_ACTIVITY_CODE && resultCode == RESULT_OK) {
             String update_code = "";
-            Bundle update_object  = null;
+            Bundle update_object = null;
             update_object = data.getExtras();
-            if (update_object !=null) {
+            if (update_object != null) {
                 update_code = update_object.getString("update");
                 if (update_code != null && !update_code.equals("0")) {
                     if (err_Dialog != null && err_Dialog.isShowing())
@@ -399,6 +404,9 @@ public class MainActivity extends AppCompatActivity
     //region overrides
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ((KandroidApplication) getApplicationContext()).appComponent.inject(this);
+
         super.onCreate(savedInstanceState);
         init();
 
