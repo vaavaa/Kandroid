@@ -82,6 +82,7 @@ dependencies {
     implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
     annotationProcessor "com.github.moxy-community:moxy-compiler:$moxyVersion"
 
+    implementation "com.google.dagger:dagger:$dagger"
     implementation "com.google.dagger:dagger-android:$dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger"

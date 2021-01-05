@@ -1,32 +1,33 @@
 package vaa.technowize.kandroid.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 
-import javax.inject.Inject;
-
 import kandroid.R;
+import moxy.MvpAppCompatActivity;
+import moxy.presenter.InjectPresenter;
 import vaa.technowize.kandroid.KandroidApplication;
-import vaa.technowize.kandroid.mvp.views.SplashViewModel;
+import vaa.technowize.kandroid.mvp.presenters.SplashPresenter;
+import vaa.technowize.kandroid.mvp.views.SplashView;
 
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends MvpAppCompatActivity implements SplashView {
 
     // You want Dagger to provide an instance of
-    @Inject
-    vaa.technowize.kandroid.mvp.views.SplashViewModel SplashViewModel;
+    @InjectPresenter
+    SplashPresenter mSplashPresenter;
 
-    private static final int UI_ANIMATION_DELAY = 3000;
+    private final int UI_ANIMATION_DELAY = 3000;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
-    private Activity Self = null;
+
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -51,50 +52,68 @@ public class SplashActivity extends AppCompatActivity {
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.show();
-                Intent mainActivity = new Intent(Self, MainActivity.class);
-                Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(Self, R.anim.fade_in, R.anim.fade_out).toBundle();
-                startActivity(mainActivity, bundle);
+                checkAccess();
             }
 
-        }
-    };
-    private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
         }
     };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         ((KandroidApplication) getApplicationContext()).appComponent.inject(this);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        mVisible = true;
-        mContentView = findViewById(R.id.fullscreen_content);
-        Self = this;
-        hide();
 
+        setContentView(R.layout.activity_splash);
+        mContentView = findViewById(R.id.fullscreen_content);
+
+        finishAnimation();
     }
 
+    @Override
+    public void startAnimation() {
+        show();
+    }
 
-    private void toggle() {
-        if (mVisible) {
-            hide();
+    @Override
+    public void finishAnimation() {
+        hide();
+    }
+
+    @Override
+    public void successSignIn() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle();
+        startActivity(mainActivity, bundle);
+        finish();
+    }
+
+    @Override
+    public void checkAccess() {
+        if (mSplashPresenter.createKandoardAPI(this.getBaseContext())) {
+            successSignIn();
         } else {
-            show();
+            startSignIn();
         }
+    }
+
+    @Override
+    public void startSignIn() {
+        Intent iLoginScreen = new Intent(this, LoginActivity.class);
+        startActivity(iLoginScreen);
+        finish();
+    }
+
+    @Override
+    public boolean showProgress() {
+        return true;
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        show();
+        startAnimation();
     }
 
     private void hide() {
@@ -103,20 +122,17 @@ public class SplashActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
+
     private void show() {
         // Show the system bar
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        mVisible = true;
-
-        // Schedule a runnable to display UI elements after a delay
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }

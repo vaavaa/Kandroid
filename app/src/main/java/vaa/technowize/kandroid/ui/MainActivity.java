@@ -64,6 +64,8 @@ import java.util.List;
 
 import fr.tvbarthel.intentshare.IntentShare;
 import kandroid.R;
+import moxy.MvpAppCompatActivity;
+import moxy.presenter.InjectPresenter;
 import vaa.technowize.kandroid.ArrayPagerAdapter;
 import kandroid.BuildConfig;
 import vaa.technowize.kandroid.Constants;
@@ -94,9 +96,15 @@ import vaa.technowize.kandroid.kanboard.events.OnGetMyProjectsListener;
 import vaa.technowize.kandroid.kanboard.events.OnGetOverdueTasksByProjectListener;
 import vaa.technowize.kandroid.kanboard.events.OnGetProjectByIdListener;
 import vaa.technowize.kandroid.kanboard.events.OnGetProjectUsersListener;
+import vaa.technowize.kandroid.mvp.presenters.LoginPresenter;
+import vaa.technowize.kandroid.mvp.presenters.MainPresenter;
+import vaa.technowize.kandroid.mvp.views.MainView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends MvpAppCompatActivity
+        implements MainView, NavigationView.OnNavigationItemSelectedListener {
+
+    @InjectPresenter
+    MainPresenter mMainPresenter;
 
     private static final int CHILD_ACTIVITY_CODE = 657;
     private String serverURL;
@@ -140,8 +148,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHILD_ACTIVITY_CODE && resultCode == RESULT_OK) {
             String update_code = "";
-            Bundle update_object = null;
-            update_object = data.getExtras();
+            Bundle update_object = data.getExtras();
             if (update_object != null) {
                 update_code = update_object.getString("update");
                 if (update_code != null && !update_code.equals("0")) {
@@ -586,7 +593,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void combineDashboard() {
+    @Override
+    public int getMode() {
+        return mode;
+    }
+
+    @Override
+    public void combineDashboard() {
         if (mDashboard != null && mMyOverduetasks != null && mMyActivities != null && mProjectList != null) {
             mDashboard.setExtra(mMyOverduetasks, mMyActivities, mProjectList);
             populateProjectsMenu();
@@ -598,7 +611,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void combineProject() {
+    @Override
+    public void setMeText(String meText) {
+        ((TextView) findViewById(R.id.nav_serverurl)).setText(meText);
+    }
+
+    @Override
+    public void combineProject() {
         if (mProject != null && mColumns != null && mSwimlanes != null && mCategories != null &&
                 mActiveTasks != null && mInactiveTasks != null && mOverdueTasks != null && mProjectUsers != null) {
             mProject.setExtra(mColumns, mSwimlanes, mCategories, mActiveTasks, mInactiveTasks, mOverdueTasks, mProjectUsers);
@@ -677,8 +696,8 @@ public class MainActivity extends AppCompatActivity
         mArrayPager.notifyDataSetChanged();
     }
 
-
-    private boolean showProgress(final boolean show) {
+    @Override
+    public boolean showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
@@ -730,6 +749,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private boolean createKandoardAPI() {
+
         // Check if API object already exists
         if (kanboardAPI != null)
             return true;

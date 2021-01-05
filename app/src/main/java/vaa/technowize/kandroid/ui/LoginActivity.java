@@ -29,7 +29,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -43,6 +42,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import moxy.MvpAppCompatActivity;
+import moxy.presenter.InjectPresenter;
 import vaa.technowize.kandroid.Constants;
 import kandroid.R;
 import vaa.technowize.kandroid.KandroidApplication;
@@ -50,11 +51,18 @@ import vaa.technowize.kandroid.kanboard.KanboardAPI;
 import vaa.technowize.kandroid.kanboard.KanboardError;
 import vaa.technowize.kandroid.kanboard.events.OnErrorListener;
 import vaa.technowize.kandroid.kanboard.events.OnGetVersionListener;
+import vaa.technowize.kandroid.mvp.presenters.LoginPresenter;
+import vaa.technowize.kandroid.mvp.presenters.SplashPresenter;
+import vaa.technowize.kandroid.mvp.views.LoginView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
+
+    @InjectPresenter
+    LoginPresenter mLoginPresenter;
+
     private KanboardAPI kanboardAPI = null;
     private Context self;
 

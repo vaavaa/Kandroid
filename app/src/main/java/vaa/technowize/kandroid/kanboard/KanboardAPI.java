@@ -60,11 +60,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import javax.inject.Singleton;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.TrustManagerFactory;
 
+import dagger.Module;
+import dagger.Provides;
 import kandroid.BuildConfig;
 import vaa.technowize.kandroid.Constants;
 import vaa.technowize.kandroid.kanboard.events.OnCloseTaskListener;
@@ -108,6 +111,7 @@ import vaa.technowize.kandroid.kanboard.events.OnUpdateCommentListener;
 import vaa.technowize.kandroid.kanboard.events.OnUpdateSubtaskListener;
 import vaa.technowize.kandroid.kanboard.events.OnUpdateTaskListener;
 
+@Module
 @SuppressWarnings("unused")
 public class KanboardAPI {
 
@@ -1014,6 +1018,12 @@ public class KanboardAPI {
         threadPoolExecutor = (ThreadPoolExecutor) AsyncTask.THREAD_POOL_EXECUTOR;
         threadPoolExecutor.setCorePoolSize(12);
         threadPoolExecutor.setMaximumPoolSize(12);
+    }
+
+    @Provides
+    @Singleton
+    public KanboardAPI provideKanboardAPI(String serverURL, final String username, final String password) throws IOException {
+        return new KanboardAPI(serverURL, username, password);
     }
 
     // Event Listeners

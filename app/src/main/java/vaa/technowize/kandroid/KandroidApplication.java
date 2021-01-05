@@ -41,6 +41,10 @@ public class KandroidApplication extends Application {
         Log.i(Constants.TAG, "Start ACRA");
     }
 
+    public ApplicationComponent getAppComponent() {
+        return appComponent;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
