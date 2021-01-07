@@ -9,6 +9,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.appcompat.app.ActionBar;
 
 import android.view.View;
+import android.widget.ProgressBar;
 
 import kandroid.R;
 import moxy.MvpAppCompatActivity;
@@ -16,6 +17,9 @@ import moxy.presenter.InjectPresenter;
 import vaa.technowize.kandroid.KandroidApplication;
 import vaa.technowize.kandroid.mvp.presenters.SplashPresenter;
 import vaa.technowize.kandroid.mvp.views.SplashView;
+
+import static java.lang.Thread.currentThread;
+import static java.lang.Thread.sleep;
 
 
 public class SplashActivity extends MvpAppCompatActivity implements SplashView {
@@ -25,8 +29,11 @@ public class SplashActivity extends MvpAppCompatActivity implements SplashView {
     SplashPresenter mSplashPresenter;
 
     private final int UI_ANIMATION_DELAY = 3000;
+    private final int UI_PROGRESS_DELAY = 30;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    private ProgressBar mThinProgress;
+    private int exit_while = 1;
 
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -45,6 +52,7 @@ public class SplashActivity extends MvpAppCompatActivity implements SplashView {
         }
     };
 
+
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -52,7 +60,30 @@ public class SplashActivity extends MvpAppCompatActivity implements SplashView {
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.show();
-                checkAccess();
+                mThinProgress.setVisibility(View.VISIBLE);
+                exit_while = mThinProgress.getProgress();
+                new Thread(new Runnable() {
+                    public void run() {
+                        while (exit_while < mThinProgress.getMax()) {
+                            exit_while += 1;
+                            // Update the progress bar and display the current value in text view
+                            mThinProgress.post(new Runnable() {
+                                public void run() {
+                                    mThinProgress.setProgress(exit_while);
+                                }
+                            });
+                            try {
+                                // Sleep for 100 milliseconds to show the progress slowly.
+                                Thread.sleep(UI_PROGRESS_DELAY);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (exit_while == mThinProgress.getMax()) {
+                            checkAccess();
+                        }
+                    }
+                }).start();
             }
 
         }
@@ -66,6 +97,7 @@ public class SplashActivity extends MvpAppCompatActivity implements SplashView {
 
         setContentView(R.layout.activity_splash);
         mContentView = findViewById(R.id.fullscreen_content);
+        mThinProgress = findViewById(R.id.thin_progress);
 
         finishAnimation();
     }
@@ -90,11 +122,10 @@ public class SplashActivity extends MvpAppCompatActivity implements SplashView {
 
     @Override
     public void checkAccess() {
-        if (mSplashPresenter.createKandoardAPI(this.getBaseContext())) {
-            successSignIn();
-        } else {
-            startSignIn();
-        }
+
+        successSignIn();
+
+
     }
 
     @Override
@@ -102,11 +133,6 @@ public class SplashActivity extends MvpAppCompatActivity implements SplashView {
         Intent iLoginScreen = new Intent(this, LoginActivity.class);
         startActivity(iLoginScreen);
         finish();
-    }
-
-    @Override
-    public boolean showProgress() {
-        return true;
     }
 
 

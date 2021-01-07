@@ -23,6 +23,19 @@
         android:layout_margin="100dp"
         android:src="@mipmap/ic_launcher"/>
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="2dp"
+        android:id="@+id/thin_progress"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:theme="@style/ProgressBarStyle"
+        android:max="100"
+        android:progress="0"/>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

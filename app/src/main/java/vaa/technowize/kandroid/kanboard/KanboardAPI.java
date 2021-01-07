@@ -22,8 +22,10 @@ package vaa.technowize.kandroid.kanboard;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -60,14 +62,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import javax.inject.Singleton;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.TrustManagerFactory;
 
-import dagger.Module;
-import dagger.Provides;
 import kandroid.BuildConfig;
 import vaa.technowize.kandroid.Constants;
 import vaa.technowize.kandroid.kanboard.events.OnCloseTaskListener;
@@ -111,7 +110,6 @@ import vaa.technowize.kandroid.kanboard.events.OnUpdateCommentListener;
 import vaa.technowize.kandroid.kanboard.events.OnUpdateSubtaskListener;
 import vaa.technowize.kandroid.kanboard.events.OnUpdateTaskListener;
 
-@Module
 @SuppressWarnings("unused")
 public class KanboardAPI {
 
@@ -184,7 +182,7 @@ public class KanboardAPI {
             SSLContext sslcontext = null;
             int httpResponseCode = 0;
             List<JSONObject> responseList = new ArrayList<>();
-            for (String s: params[0].JSON) {
+            for (String s : params[0].JSON) {
                 try {
 
                     Log.i(Constants.TAG, String.format("API: Send Request \"%s\"", params[0].Command));
@@ -276,12 +274,13 @@ public class KanboardAPI {
 
             return new KanboardResult(params[0], responseList.toArray(new JSONObject[]{}), httpResponseCode);
         }
+
         @Override
         protected void onPostExecute(KanboardResult s) {
             // Handle Errors
             if (s == null || s.Result == null || s.Result[0] == null) {
                 KanboardError res = new KanboardError(null, null, 0);
-                for (OnErrorListener l: onErrorListeners)
+                for (OnErrorListener l : onErrorListeners)
                     l.onError(res);
                 return;
             }
@@ -289,7 +288,7 @@ public class KanboardAPI {
                 Log.e(Constants.TAG, s.Result[0].toString());
                 JSONObject err = s.Result[0].optJSONObject("error");
                 KanboardError res = new KanboardError(s.Request, err, s.ReturnCode);
-                for (OnErrorListener l: onErrorListeners)
+                for (OnErrorListener l : onErrorListeners)
                     l.onError(res);
                 return;
             }
@@ -307,7 +306,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetMeListener l: onGetMeListeners)
+                for (OnGetMeListener l : onGetMeListeners)
                     l.onGetMe(success, res);
                 return;
             }
@@ -347,7 +346,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetVersionListener l: onGetVersionListeners)
+                for (OnGetVersionListener l : onGetVersionListeners)
                     l.onGetVersion(success, version, tag);
                 return;
             }
@@ -362,7 +361,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetDefaultColorListener l: onGetDefaultColorListeners) {
+                for (OnGetDefaultColorListener l : onGetDefaultColorListeners) {
                     l.onGetDefaultColor(success, res);
                 }
                 return;
@@ -384,7 +383,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetDefaultColorsListener l: onGetDefaultColorsListeners) {
+                for (OnGetDefaultColorsListener l : onGetDefaultColorsListeners) {
                     l.onGetDefaultColors(success, res);
                 }
                 return;
@@ -405,8 +404,8 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                    for (OnGetMyProjectsListListener l: onGetMyProjectsListListeners)
-                        l.onGetMyProjectsList(success, res);
+                for (OnGetMyProjectsListListener l : onGetMyProjectsListListeners)
+                    l.onGetMyProjectsList(success, res);
                 return;
             }
 
@@ -424,8 +423,8 @@ public class KanboardAPI {
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
                 }
-                    for (OnGetMyProjectsListener l: onGetMyProjectsListeners)
-                        l.onGetMyProjects(success, res);
+                for (OnGetMyProjectsListener l : onGetMyProjectsListeners)
+                    l.onGetMyProjects(success, res);
                 return;
             }
 
@@ -439,7 +438,7 @@ public class KanboardAPI {
                     }
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
-                    for (OnErrorListener l: onErrorListeners) {
+                    for (OnErrorListener l : onErrorListeners) {
                         try {
                             l.onError(new KanboardError(s.Request, new JSONObject("{\"message\": \"\", \"code\": -50}"), 200));
                         } catch (JSONException e1) {
@@ -447,7 +446,7 @@ public class KanboardAPI {
                         }
                     }
                 }
-                for (OnGetMyDashboardListener l: onGetMyDashboardListeners)
+                for (OnGetMyDashboardListener l : onGetMyDashboardListeners)
                     l.onGetMyDashboard(success, res);
                 return;
             }
@@ -466,7 +465,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetMyActivityStreamListener l: onGetMyActivityStreamListeners)
+                for (OnGetMyActivityStreamListener l : onGetMyActivityStreamListeners)
                     l.onGetMyActivityStream(success, res);
                 return;
             }
@@ -485,7 +484,7 @@ public class KanboardAPI {
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
                 }
-                for (OnGetMyOverdueTasksListener l: onGetMyOverdueTasksListeners)
+                for (OnGetMyOverdueTasksListener l : onGetMyOverdueTasksListeners)
                     l.onGetMyOverdueTasks(success, res);
                 return;
             }
@@ -500,7 +499,7 @@ public class KanboardAPI {
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
                 }
-                for (OnGetProjectByIdListener l: onGetProjectByIdListeners)
+                for (OnGetProjectByIdListener l : onGetProjectByIdListeners)
                     l.onGetProjectById(success, res);
                 return;
             }
@@ -519,7 +518,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetColumnsListener l: onGetColumnsListeners)
+                for (OnGetColumnsListener l : onGetColumnsListeners)
                     l.onGetColumns(success, res);
                 return;
             }
@@ -540,7 +539,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetProjectUsersListener l: onGetProjectUsersListeners)
+                for (OnGetProjectUsersListener l : onGetProjectUsersListeners)
                     l.onGetProjectUsers(success, res);
                 return;
             }
@@ -561,7 +560,7 @@ public class KanboardAPI {
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
                 }
-                for (OnGetAllTasksListener l: onGetAllTasksListener)
+                for (OnGetAllTasksListener l : onGetAllTasksListener)
                     l.onGetAllTasks(success, status, res);
                 return;
             }
@@ -580,7 +579,7 @@ public class KanboardAPI {
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
                 }
-                for (OnGetOverdueTasksByProjectListener l: onGetOverdueTasksByProjectListeners)
+                for (OnGetOverdueTasksByProjectListener l : onGetOverdueTasksByProjectListeners)
                     l.onGetOverdueTasksByProject(success, res);
                 return;
             }
@@ -595,14 +594,14 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnCreateTaskListener l: onCreateTaskListeners)
+                for (OnCreateTaskListener l : onCreateTaskListeners)
                     l.onCreateTask(success, res);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("updateTask")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnUpdateTaskListener l: onUpdateTaskListeners)
+                for (OnUpdateTaskListener l : onUpdateTaskListeners)
                     l.onUpdateTask(success);
                 return;
             }
@@ -617,42 +616,42 @@ public class KanboardAPI {
                 } catch (JSONException | MalformedURLException e) {
                     e.printStackTrace();
                 }
-                for (OnGetTaskListener l: onGetTaskListeners)
+                for (OnGetTaskListener l : onGetTaskListeners)
                     l.onGetTask(success, res);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("openTask")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnOpenTaskListener l: onOpenTaskListeners)
+                for (OnOpenTaskListener l : onOpenTaskListeners)
                     l.onOpenTask(success);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("closeTask")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnCloseTaskListener l: onCloseTaskListeners)
+                for (OnCloseTaskListener l : onCloseTaskListeners)
                     l.onCloseTask(success);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("removeTask")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnRemoveTaskListener l: onRemoveTaskListeners)
+                for (OnRemoveTaskListener l : onRemoveTaskListeners)
                     l.onRemoveTask(success);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("moveTaskPosition")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnMoveTaskPositionListener l: onMoveTaskPositionListeners)
+                for (OnMoveTaskPositionListener l : onMoveTaskPositionListeners)
                     l.onMoveTaskPosition(success);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("moveTaskToProject")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnMoveTaskToProjectListener l: onMoveTaskToProjectListeners)
+                for (OnMoveTaskToProjectListener l : onMoveTaskToProjectListeners)
                     l.onMoveTaskToProject(success);
                 return;
             }
@@ -663,7 +662,7 @@ public class KanboardAPI {
                     success = true;
                     res = s.Result[0].optInt("result");
                 }
-                for (OnDuplicateTaskToProjectListener l: onDuplicateTaskToProjectListeners)
+                for (OnDuplicateTaskToProjectListener l : onDuplicateTaskToProjectListeners)
                     l.onDuplicateTaskToProject(success, res);
                 return;
             }
@@ -682,14 +681,14 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetAllTaskFilesListener l: onGetAllTaskFilesListeners)
+                for (OnGetAllTaskFilesListener l : onGetAllTaskFilesListeners)
                     l.onGetAllTaskFiles(success, res);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("removeTaskFile")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnRemoveTaskFileListener l: onRemoveTaskFileListeners)
+                for (OnRemoveTaskFileListener l : onRemoveTaskFileListeners)
                     l.onRemoveTaskFile(success);
                 return;
             }
@@ -698,7 +697,7 @@ public class KanboardAPI {
                 int id = s.Result[0].optInt("id");
                 String data = s.Result[0].optString("result", "");
                 success = !data.isEmpty();
-                for (OnDownloadTaskFileListener l: onDownloadTaskFileListeners)
+                for (OnDownloadTaskFileListener l : onDownloadTaskFileListeners)
                     l.onDownloadTaskFile(success, id, data);
                 return;
             }
@@ -717,7 +716,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetActiveSwimlanesListener l: onGetActiveSwimlanesListeners)
+                for (OnGetActiveSwimlanesListener l : onGetActiveSwimlanesListeners)
                     l.onGetActiveSwimlanes(success, res);
                 return;
             }
@@ -733,7 +732,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetSwimlaneListener l: onGetDefaultSwimlaneListeners)
+                for (OnGetSwimlaneListener l : onGetDefaultSwimlaneListeners)
                     l.onGetSwimlane(success, res);
                 return;
             }
@@ -748,7 +747,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetSwimlaneListener l: onGetSwimlaneListeners)
+                for (OnGetSwimlaneListener l : onGetSwimlaneListeners)
                     l.onGetSwimlane(success, res);
                 return;
             }
@@ -767,7 +766,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetAllCategoriesListener l: onGetAllCategoriesListeners)
+                for (OnGetAllCategoriesListener l : onGetAllCategoriesListeners)
                     l.onGetAllCategories(success, res);
                 return;
             }
@@ -782,7 +781,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetCategoryListener l: onGetCategoryListeners)
+                for (OnGetCategoryListener l : onGetCategoryListeners)
                     l.onGetCategory(success, res);
                 return;
             }
@@ -797,7 +796,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnCreateCommentListener l: onCreateCommentListeners)
+                for (OnCreateCommentListener l : onCreateCommentListeners)
                     l.onCreateComment(success, res);
                 return;
             }
@@ -815,21 +814,21 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetAllCommentsListener l: onGetAllCommentsListeners)
+                for (OnGetAllCommentsListener l : onGetAllCommentsListeners)
                     l.onGetAllComments(success, res);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("updateComment")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnUpdateCommentListener l: onUpdateCommentListeners)
+                for (OnUpdateCommentListener l : onUpdateCommentListeners)
                     l.onUpdateComment(success);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("removeComment")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnRemoveCommentListener l: onRemoveCommentListeners)
+                for (OnRemoveCommentListener l : onRemoveCommentListeners)
                     l.onRemoveComment(success);
                 return;
             }
@@ -844,7 +843,7 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnCreateSubtaskListener l: onCreateSubtaskListeners)
+                for (OnCreateSubtaskListener l : onCreateSubtaskListeners)
                     l.onCreateSubtask(success, res);
                 return;
             }
@@ -862,21 +861,21 @@ public class KanboardAPI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for (OnGetAllSubtasksListener l: onGetAllSubtasksListeners)
+                for (OnGetAllSubtasksListener l : onGetAllSubtasksListeners)
                     l.onGetAllSubtasks(success, res);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("updateSubtask")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnUpdateSubtaskListener l: onUpdateSubtaskListeners)
+                for (OnUpdateSubtaskListener l : onUpdateSubtaskListeners)
                     l.onUpdateSubtask(success);
                 return;
             }
 
             if (s.Request.Command.equalsIgnoreCase("removeSubtask")) {
                 success = s.Result[0].optBoolean("result", false);
-                for (OnRemoveSubtaskListener l: onRemoveSubtaskListeners)
+                for (OnRemoveSubtaskListener l : onRemoveSubtaskListeners)
                     l.onRemoveSubtask(success);
                 return;
             }
@@ -1020,10 +1019,14 @@ public class KanboardAPI {
         threadPoolExecutor.setMaximumPoolSize(12);
     }
 
-    @Provides
-    @Singleton
-    public KanboardAPI provideKanboardAPI(String serverURL, final String username, final String password) throws IOException {
-        return new KanboardAPI(serverURL, username, password);
+    public KanboardAPI provideKanboardAPI(String serverURL, final String username, final String password) {
+        try {
+            return new KanboardAPI(serverURL, username, password);
+        } catch (IOException e) {
+            Log.e(Constants.TAG, "Failed to create API object.");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // Event Listeners
@@ -1465,7 +1468,7 @@ public class KanboardAPI {
     }
 
     public void duplicateTaskToProject(int projectid, int taskid, @Nullable Integer columnid,
-                                  @Nullable Integer position, @Nullable Integer swimlaneid) {
+                                       @Nullable Integer position, @Nullable Integer swimlaneid) {
         new KanboardAsync().executeOnExecutor(threadPoolExecutor,
                 KanboardRequest.duplicateTaskToProject(projectid, taskid, columnid, position, swimlaneid));
     }
@@ -1580,8 +1583,7 @@ public class KanboardAPI {
             Pattern c = Pattern.compile("rgb *\\( *([0-9]+), *([0-9]+), *([0-9]+) *\\)");
             Matcher m = c.matcher(colorstring);
 
-            if (m.matches())
-            {
+            if (m.matches()) {
                 return Color.rgb(Integer.valueOf(m.group(1)),  // r
                         Integer.valueOf(m.group(2)),  // g
                         Integer.valueOf(m.group(3))); // b

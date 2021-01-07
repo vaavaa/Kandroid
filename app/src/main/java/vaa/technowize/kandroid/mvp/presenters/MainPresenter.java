@@ -16,6 +16,7 @@ import kandroid.R;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 import vaa.technowize.kandroid.Constants;
+import vaa.technowize.kandroid.KandroidApplication;
 import vaa.technowize.kandroid.kanboard.KanboardAPI;
 import vaa.technowize.kandroid.kanboard.KanboardActivity;
 import vaa.technowize.kandroid.kanboard.KanboardCategory;
@@ -79,17 +80,17 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private OnGetMeListener getMeListener = new OnGetMeListener() {
         @Override
         public void onGetMe(boolean success, KanboardUserInfo result) {
-            boolean prog = !getViewState().showProgress(false);
-            if (success) {
-                Me = result;
-                getViewState().setMeText(Me.getName());
-                if (prog) {
-                    if (getViewState().getMode() == 0)
-                        getViewState().combineDashboard();
-                    else
-                        getViewState().combineProject();
-                }
-            }
+//            boolean prog = !getViewState().showProgress(false);
+//            if (success) {
+//                Me = result;
+//                getViewState().setMeText(Me.getName());
+//                if (prog) {
+//                    if (getViewState().getMode() == 0)
+//                        getViewState().combineDashboard();
+//                    else
+//                        getViewState().combineProject();
+//                }
+//            }
         }
     };
 
@@ -98,9 +99,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetMyDashboard(boolean success, KanboardDashboard result) {
             if (success) {
                 mDashboard = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineDashboard();
-                }
+
+                getViewState().combineDashboard();
+
             }
         }
     };
@@ -109,9 +110,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetMyActivityStream(boolean success, List<KanboardActivity> result) {
             if (success) {
                 mMyActivities = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineDashboard();
-                }
+
+                getViewState().combineDashboard();
+
             }
         }
     };
@@ -121,9 +122,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetMyOverdueTasks(boolean success, List<KanboardTask> result) {
             if (success) {
                 mMyOverduetasks = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineDashboard();
-                }
+
+                getViewState().combineDashboard();
+
             }
         }
     };
@@ -133,9 +134,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetProjectById(boolean success, KanboardProject result) {
             if (success) {
                 mProject = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineProject();
-                }
+                getViewState().combineProject();
+
             }
         }
     };
@@ -145,9 +145,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetColumns(boolean success, List<KanboardColumn> result) {
             if (success) {
                 mColumns = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineProject();
-                }
+
+                getViewState().combineProject();
+
             }
         }
     };
@@ -156,9 +156,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetActiveSwimlanes(boolean success, List<KanboardSwimlane> result) {
             if (success) {
                 mSwimlanes = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineProject();
-                }
+
+                getViewState().combineProject();
+
             }
         }
     };
@@ -168,9 +168,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetAllCategories(boolean success, List<KanboardCategory> result) {
             if (success) {
                 mCategories = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineProject();
-                }
+
+                getViewState().combineProject();
+
             }
         }
     };
@@ -181,14 +181,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
             if (success) {
                 if (status == 0) {
                     mInactiveTasks = result;
-                    if (!getViewState().showProgress(false)) {
-                        getViewState().combineProject();
-                    }
+
+                    getViewState().combineProject();
+
                 } else if (status == 1) {
                     mActiveTasks = result;
-                    if (!getViewState().showProgress(false)) {
-                        getViewState().combineProject();
-                    }
+
+                    getViewState().combineProject();
+
                 }
             }
         }
@@ -199,9 +199,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetOverdueTasksByProject(boolean success, List<KanboardTask> result) {
             if (success) {
                 mOverdueTasks = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineProject();
-                }
+
+                getViewState().combineProject();
+
             }
         }
     };
@@ -211,9 +211,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetProjectUsers(boolean success, Dictionary<Integer, String> result) {
             if (success) {
                 mProjectUsers = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineProject();
-                }
+
+                getViewState().combineProject();
+
             }
         }
     };
@@ -223,9 +223,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetDefaultColors(boolean success, Dictionary<String, KanboardColor> colors) {
             if (success) {
                 mColors = colors;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineDashboard();
-                }
+
+                getViewState().combineDashboard();
+
             }
         }
     };
@@ -235,9 +235,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         public void onGetMyProjects(boolean success, List<KanboardProject> result) {
             if (success) {
                 mProjectList = result;
-                if (!getViewState().showProgress(false)) {
-                    getViewState().combineDashboard();
-                }
+
+                getViewState().combineDashboard();
+
             }
         }
     };
@@ -285,6 +285,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 mKanboardAPI.addOnGetProjectUsersListener(getProjectUsersListener);
                 mKanboardAPI.addOnGetDefaultColorsListener(getDefaultColorsListener);
                 mKanboardAPI.addOnGetMyProjectsListener(getMyProjectsListener);
+                ((KandroidApplication) baseContext).appComponent.inject(mKanboardAPI);
+                getViewState().setKanboardAPI(mKanboardAPI);
                 return true;
             } catch (IOException e) {
                 Log.e(Constants.TAG, "Failed to create API object.");

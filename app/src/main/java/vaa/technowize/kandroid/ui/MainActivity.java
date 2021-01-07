@@ -62,6 +62,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import fr.tvbarthel.intentshare.IntentShare;
 import kandroid.R;
 import moxy.MvpAppCompatActivity;
@@ -106,6 +108,8 @@ public class MainActivity extends MvpAppCompatActivity
     @InjectPresenter
     MainPresenter mMainPresenter;
 
+    KanboardAPI kanboardAPI;
+
     private static final int CHILD_ACTIVITY_CODE = 657;
     private String serverURL;
     private String username;
@@ -126,7 +130,7 @@ public class MainActivity extends MvpAppCompatActivity
 
     private int mode = 0;
 
-    private KanboardAPI kanboardAPI;
+
     private KanboardUserInfo Me;
     //    private List<KanboardProjectInfo> mProjects;
     private KanboardProject mProject = null;
@@ -464,7 +468,7 @@ public class MainActivity extends MvpAppCompatActivity
         if ((mDashboard == null && mode == 0) || (mProject == null && mode > 0))
             refresh();
         else
-            createKandoardAPI();
+            mMainPresenter.createKandoardAPI(getApplicationContext());
     }
 
     @Override
@@ -593,7 +597,6 @@ public class MainActivity extends MvpAppCompatActivity
         }
     }
 
-    @Override
     public int getMode() {
         return mode;
     }
@@ -614,6 +617,11 @@ public class MainActivity extends MvpAppCompatActivity
     @Override
     public void setMeText(String meText) {
         ((TextView) findViewById(R.id.nav_serverurl)).setText(meText);
+    }
+
+    @Override
+    public void setKanboardAPI(KanboardAPI tkanboardAPI) {
+        kanboardAPI = tkanboardAPI;
     }
 
     @Override
@@ -696,7 +704,7 @@ public class MainActivity extends MvpAppCompatActivity
         mArrayPager.notifyDataSetChanged();
     }
 
-    @Override
+
     public boolean showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -748,61 +756,64 @@ public class MainActivity extends MvpAppCompatActivity
         return progressBarCount != 0;
     }
 
-    private boolean createKandoardAPI() {
-
-        // Check if API object already exists
-        if (kanboardAPI != null)
-            return true;
-
-        Log.d(Constants.TAG, "Creating API object");
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-        boolean showLoginScreen = false;
-        if (!preferences.contains("serverurl"))
-            showLoginScreen = true;
-        serverURL = preferences.getString("serverurl", "");
-
-        if (!preferences.contains("username"))
-            showLoginScreen = true;
-        username = preferences.getString("username", "");
-
-        if (!preferences.contains("password"))
-            showLoginScreen = true;
-        password = preferences.getString("password", "");
-
-        if (showLoginScreen) {
-            Log.i("Kandroid", "No credential found. Launching login activity.");
-            Intent iLoginScreen = new Intent(this, LoginActivity.class);
-            startActivity(iLoginScreen);
-            return false;
-        } else {
-            try {
-                kanboardAPI = new KanboardAPI(serverURL, username, password);
-                kanboardAPI.addErrorListener(errorListener);
-                kanboardAPI.addOnGetMeListener(getMeListener);
-                kanboardAPI.addOnGetMyDashboardListener(getMyDashboardListener);
-                kanboardAPI.addOnGetMyActivityStreamListener(getMyActivityStreamListener);
-                kanboardAPI.addOnGetMyOverdueTasksListener(getMyOverdueTasksListener);
-                kanboardAPI.addOnGetProjectByIdListener(getProjectByIdListener);
-                kanboardAPI.addOnGetColumnsListener(getColumnsListener);
-                kanboardAPI.addOnGetActiveSwimlanesListener(getActiveSwimlanesListener);
-                kanboardAPI.addOnGetAllCategoriesListener(getAllCategoriesListener);
-                kanboardAPI.addOnGetAllTasksListener(getAllTasksListener);
-                kanboardAPI.addOnGetOverdueTasksByProjectListener(getOverdueTasksByProjectListener);
-                kanboardAPI.addOnGetProjectUsersListener(getProjectUsersListener);
-                kanboardAPI.addOnGetDefaultColorsListener(getDefaultColorsListener);
-                kanboardAPI.addOnGetMyProjectsListener(getMyProjectsListener);
-                return true;
-            } catch (IOException e) {
-                Log.e(Constants.TAG, "Failed to create API object.");
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
+//    private boolean createKandoardAPI() {
+//
+//        // Check if API object already exists
+//        if (kanboardAPI != null)
+//            return true;
+//
+//        Log.d(Constants.TAG, "Creating API object");
+//
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
+//        boolean showLoginScreen = false;
+//        if (!preferences.contains("serverurl"))
+//            showLoginScreen = true;
+//        serverURL = preferences.getString("serverurl", "");
+//
+//        if (!preferences.contains("username"))
+//            showLoginScreen = true;
+//        username = preferences.getString("username", "");
+//
+//        if (!preferences.contains("password"))
+//            showLoginScreen = true;
+//        password = preferences.getString("password", "");
+//
+//        if (showLoginScreen) {
+//            Log.i("Kandroid", "No credential found. Launching login activity.");
+//            Intent iLoginScreen = new Intent(this, LoginActivity.class);
+//            startActivity(iLoginScreen);
+//            return false;
+//        } else {
+//            try {
+//                kanboardAPI = new KanboardAPI(serverURL, username, password);
+//                kanboardAPI.addErrorListener(errorListener);
+//                kanboardAPI.addOnGetMeListener(getMeListener);
+//                kanboardAPI.addOnGetMyDashboardListener(getMyDashboardListener);
+//                kanboardAPI.addOnGetMyActivityStreamListener(getMyActivityStreamListener);
+//                kanboardAPI.addOnGetMyOverdueTasksListener(getMyOverdueTasksListener);
+//                kanboardAPI.addOnGetProjectByIdListener(getProjectByIdListener);
+//                kanboardAPI.addOnGetColumnsListener(getColumnsListener);
+//                kanboardAPI.addOnGetActiveSwimlanesListener(getActiveSwimlanesListener);
+//                kanboardAPI.addOnGetAllCategoriesListener(getAllCategoriesListener);
+//                kanboardAPI.addOnGetAllTasksListener(getAllTasksListener);
+//                kanboardAPI.addOnGetOverdueTasksByProjectListener(getOverdueTasksByProjectListener);
+//                kanboardAPI.addOnGetProjectUsersListener(getProjectUsersListener);
+//                kanboardAPI.addOnGetDefaultColorsListener(getDefaultColorsListener);
+//                kanboardAPI.addOnGetMyProjectsListener(getMyProjectsListener);
+//
+//                ((KandroidApplication) getApplicationContext()).appComponent.inject(kanboardAPI);
+//
+//                return true;
+//            } catch (IOException e) {
+//                Log.e(Constants.TAG, "Failed to create API object.");
+//                e.printStackTrace();
+//            }
+//        }
+//        return false;
+//    }
 
     protected void refresh() {
-        if (!createKandoardAPI())
+        if (!mMainPresenter.createKandoardAPI(getApplicationContext()))
             return;
 
 

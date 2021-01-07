@@ -27,4 +27,9 @@
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
+    <style name="ProgressBarStyle">
+        <item name="colorAccent">@color/greenLight</item>
+    </style>
+
+
 </resources>
