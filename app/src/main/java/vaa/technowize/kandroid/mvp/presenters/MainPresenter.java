@@ -73,7 +73,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private OnErrorListener errorListener = new OnErrorListener() {
         @Override
         public void onError(KanboardError error) {
-
+            Log.e("ApiErr", "Error" +error.Message);
         }
     };
 

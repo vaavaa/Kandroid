@@ -29,6 +29,9 @@ import org.acra.annotation.AcraCore;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.data.StringFormat;
 
+import java.net.ConnectException;
+import java.net.UnknownHostException;
+
 
 @AcraCore(buildConfigClass = BuildConfig.class)
 public class KandroidApplication extends Application {
